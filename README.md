@@ -2,7 +2,60 @@ This file provides guidance when working with code in this repository. The READM
 
 # Project Notes
 
-<!-- Documentation for this specific project goes here. This will include both an articulation of what this project aims to accomplish as well as technical details about how it works. This means explaining the purpose of the project as a whole along with an overview of the design choices. -->
+## The Red Room - Club & Bar Landing Page
+
+A sophisticated, dark-themed landing page designed to drive traffic to The Red Room nightclub and cocktail lounge. Built with React, Tailwind CSS, and shadcn/ui components.
+
+### Purpose
+
+This site serves as the digital front door for The Red Room, an underground cocktail lounge and nightclub experience. The design focuses on:
+
+- **Attracting guests** through an immersive, moody visual experience
+- **Driving reservations** with prominent CTAs for table bookings
+- **Promoting events** with an upcoming events calendar
+- **Building a guest list** for marketing and VIP access
+- **Establishing brand identity** as a premium nightlife destination
+
+### Target Audience
+
+- 21+ nightlife enthusiasts
+- Cocktail aficionados
+- Music lovers (jazz, house, electronic)
+- Groups looking for VIP table experiences
+- Professionals seeking after-work drinks
+
+### Key Features
+
+1. **Hero Section** - Full-screen immersive experience with animated background effects
+2. **Event Calendar** - Upcoming events with ticket links and details
+3. **Guest List Signup** - Email capture for marketing and line skipping
+4. **Testimonials** - Social proof from satisfied guests
+5. **Contact/Location** - Address, hours, and reservation info
+6. **Mobile-First Design** - Optimized for the 85%+ mobile traffic expected
+
+### Design System
+
+- **Primary Color**: Red tones (red-500 to red-900) - evokes passion, energy, nightlife
+- **Background**: Deep black with red gradient overlays
+- **Typography**: Clean sans-serif with tracking-wide for headers
+- **Aesthetic**: Underground speakeasy meets modern luxury
+
+### File Structure
+
+```
+src/
+├── pages/
+│   └── RedRoomLanding.tsx    # Main landing page component
+├── App.tsx                    # Router setup
+└── components/ui/             # shadcn/ui components
+```
+
+### SEO Configuration
+
+- Title: "The Red Room | Underground Cocktail Lounge & Nightclub"
+- Meta description optimized for local nightlife searches
+- Open Graph tags for social sharing
+- Keywords: nightclub, cocktail lounge, bar, speakeasy, live music, nightlife
 
 ---
 

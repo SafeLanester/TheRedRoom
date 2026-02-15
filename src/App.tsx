@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import MarketingDemo from "./pages/marketing-demo";
+import RedRoomLanding from "./pages/RedRoomLanding";
 import { ThemeProvider } from "@/components/theme-provider";
 
 export default function App() {
@@ -7,7 +7,7 @@ export default function App() {
     <ThemeProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<MarketingDemo />} />
+          <Route path="/" element={<RedRoomLanding />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
