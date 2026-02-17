@@ -143,7 +143,7 @@ export default function RedRoomLanding() {
               <a href="#contact" className="hover:text-red-500 transition-colors">CONTACT</a>
             </div>
             <Button className="bg-red-700 hover:bg-red-600 text-white border-0">
-              BOOK TABLE
+              BOOK EVENT
             </Button>
           </div>
         </div>
@@ -164,7 +164,7 @@ export default function RedRoomLanding() {
         <div className="relative mx-auto max-w-5xl px-6 text-center pt-20">
           <Badge className="mb-6 bg-red-900/50 text-red-200 border-red-700/50 px-4 py-1">
             <IconStar className="mr-1 size-3" />
-            NOW OPEN - THURSDAY THROUGH SUNDAY
+            NOW OPEN - 7 DAYS A WEEK
           </Badge>
           
           <h1 className="mb-6 text-6xl font-bold tracking-tight md:text-7xl lg:text-8xl">
@@ -184,7 +184,7 @@ export default function RedRoomLanding() {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button size="lg" className="bg-red-700 hover:bg-red-600 text-white px-8 py-6 text-lg">
-              RESERVE A TABLE
+              BOOK AN EVENT
             </Button>
             <Button size="lg" variant="outline" className="border-red-700 text-red-400 hover:bg-red-950/50 px-8 py-6 text-lg">
               VIEW EVENTS
@@ -195,11 +195,11 @@ export default function RedRoomLanding() {
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
             <div className="flex items-center justify-center gap-2 text-gray-400">
               <IconMapPin className="size-4 text-red-500" />
-              <span>123 Underground Ave, Downtown</span>
+              <span>411 E. Baltimore St. Downtown Baltimore</span>
             </div>
             <div className="flex items-center justify-center gap-2 text-gray-400">
               <IconClock className="size-4 text-red-500" />
-              <span>Thu-Sun: 8PM - 4AM</span>
+              <span>Open 7 Days: 12PM - 2AM</span>
             </div>
             <div className="flex items-center justify-center gap-2 text-gray-400">
               <IconPhone className="size-4 text-red-500" />
@@ -316,7 +316,7 @@ export default function RedRoomLanding() {
               </h2>
               <p className="mb-8 text-gray-400 max-w-lg mx-auto">
                 Skip the line and get exclusive access to special events, 
-                drink specials, and VIP table offers. Be the first to know.
+                drink specials, and VIP event access. Be the first to know.
               </p>
               
               <form onSubmit={handleGuestList} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
@@ -377,7 +377,7 @@ export default function RedRoomLanding() {
                 FIND US
               </h2>
               <p className="text-gray-400 mb-8">
-                Tucked away in the heart of downtown. Look for the red door 
+                Tucked away in the heart of downtown Baltimore. Look for the red door 
                 beneath the neon sign. Admission is 21+ with valid ID.
               </p>
               
@@ -388,7 +388,7 @@ export default function RedRoomLanding() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-white">Address</h4>
-                    <p className="text-gray-400">123 Underground Avenue<br />Downtown District, NY 10001</p>
+                    <p className="text-gray-400">411 E. Baltimore St.<br />Downtown Baltimore, MD 21202</p>
                   </div>
                 </div>
                 
@@ -399,8 +399,8 @@ export default function RedRoomLanding() {
                   <div>
                     <h4 className="font-semibold text-white">Hours</h4>
                     <p className="text-gray-400">
-                      Thursday - Sunday<br />
-                      8:00 PM - 4:00 AM
+                      Open Daily<br />
+                      12:00 PM - 2:00 AM
                     </p>
                   </div>
                 </div>
@@ -422,7 +422,7 @@ export default function RedRoomLanding() {
               <div className="text-center">
                 <IconMapPin className="mx-auto h-16 w-16 text-red-700 mb-4" />
                 <p className="text-gray-500">Interactive Map</p>
-                <p className="text-sm text-gray-600">123 Underground Ave</p>
+                <p className="text-sm text-gray-600">411 E. Baltimore St.</p>
               </div>
             </div>
           </div>
@@ -436,11 +436,11 @@ export default function RedRoomLanding() {
             READY FOR TONIGHT?
           </h2>
           <p className="mb-10 text-xl text-gray-400">
-            Tables fill up fast. Reserve yours now and experience The Red Room.
+            Events book up fast. Reserve your date now and experience The Red Room.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button size="lg" className="bg-red-700 hover:bg-red-600 text-white px-10 py-6 text-lg">
-              BOOK A TABLE
+              BOOK AN EVENT
             </Button>
             <Button size="lg" variant="outline" className="border-red-700 text-red-400 hover:bg-red-950/50 px-10 py-6 text-lg">
               <IconPhone className="mr-2 size-5" />
@@ -476,7 +476,7 @@ export default function RedRoomLanding() {
               <ul className="space-y-2 text-sm text-gray-400">
                 <li>(555) 123-RED-ROOM</li>
                 <li>vip@theredroom.com</li>
-                <li>123 Underground Ave</li>
+                <li>411 E. Baltimore St.</li>
               </ul>
             </div>
             <div>
