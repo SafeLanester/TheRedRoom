@@ -4,11 +4,11 @@ This file provides guidance when working with code in this repository. The READM
 
 ## The Red Room - Club & Bar Landing Page
 
-A sophisticated, dark-themed landing page designed to drive traffic to The Red Room nightclub and cocktail lounge. Built with React, Tailwind CSS, and shadcn/ui components.
+A sophisticated, dark-themed landing page designed to drive traffic to The Red Room cabaret and cocktail lounge. Built with React, Tailwind CSS, and shadcn/ui components.
 
 ### Purpose
 
-This site serves as the digital front door for The Red Room, an underground cocktail lounge and nightclub experience. The design focuses on:
+This site serves as the digital front door for The Red Room, an underground cabaret and cocktail lounge experience. The design focuses on:
 
 - **Attracting guests** through an immersive, moody visual experience
 - **Driving reservations** with prominent CTAs for table bookings

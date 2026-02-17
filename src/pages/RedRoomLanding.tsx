@@ -29,7 +29,7 @@ import { Separator } from "@/components/ui/separator";
  * The Red Room - Premium Club & Bar Landing Page
  *
  * A sophisticated, dark-themed landing page designed to attract
- * guests to The Red Room nightclub and cocktail lounge.
+ * guests to The Red Room cabaret and cocktail lounge.
  */
 
 // Alias for clarity
@@ -178,7 +178,7 @@ export default function RedRoomLanding() {
           </p>
           
           <p className="mb-10 text-lg text-gray-400 max-w-2xl mx-auto">
-            An underground cocktail lounge and nightclub experience. 
+            An underground cocktail lounge and cabaret experience. 
             Craft cocktails, world-class DJs, and an atmosphere you won't find anywhere else.
           </p>
 
@@ -459,7 +459,7 @@ export default function RedRoomLanding() {
                 <span className="text-red-600">THE</span> RED ROOM
               </div>
               <p className="text-sm text-gray-500">
-                An underground cocktail lounge and nightclub experience.
+                An underground cocktail lounge and cabaret experience.
               </p>
             </div>
             <div>
