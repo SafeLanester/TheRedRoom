@@ -1,19 +1,18 @@
 import { useState } from "react";
 import {
-  IconWine,
-  IconMusic,
-  IconCalendar,
-  IconMapPin,
-  IconClock,
-  IconPhone,
-  IconMail,
-  IconInstagram,
-  IconBrandX,
-  IconChevronRight,
-  IconStar,
-  IconGlassFull,
-  IconMicrophone2,
-} from "@tabler/icons-react";
+  Wine,
+  Music,
+  CalendarDays,
+  MapPin,
+  Clock,
+  Phone,
+  Mail,
+  Instagram,
+  Twitter,
+  ChevronRight,
+  Star,
+  Mic2,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -33,21 +32,34 @@ import { Separator } from "@/components/ui/separator";
  * guests to The Red Room nightclub and cocktail lounge.
  */
 
+// Alias for clarity
+const GlassFull = Wine;
+const IconCalendar = CalendarDays;
+const IconMapPin = MapPin;
+const IconClock = Clock;
+const IconPhone = Phone;
+const IconMail = Mail;
+const IconInstagram = Instagram;
+const IconBrandX = Twitter;
+const IconChevronRight = ChevronRight;
+const IconStar = Star;
+const IconMicrophone2 = Mic2;
+
 const features = [
   {
-    icon: IconWine,
+    icon: Wine,
     title: "Craft Cocktails",
     description:
       "Expertly mixed signature drinks and classic cocktails by our award-winning bartenders.",
   },
   {
-    icon: IconMusic,
+    icon: Music,
     title: "Live Music",
     description:
       "Curated DJs and live performances every weekend. House, jazz, and everything in between.",
   },
   {
-    icon: IconGlassFull,
+    icon: GlassFull,
     title: "Premium Spirits",
     description:
       "Extensive selection of rare whiskies, small-batch gins, and exclusive champagne.",
