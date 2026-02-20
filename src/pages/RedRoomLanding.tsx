@@ -56,16 +56,16 @@ const features = [
     icon: Music,
     title: "Live Music",
     description:
-      "Curated DJs and live performances every weekend. House, jazz, and everything in between.",
+      "Live performances every weekend. Jazz, blues, and everything in between.",
   },
   {
-    icon: GlassFull,
+    icon: Wine,
     title: "Premium Spirits",
     description:
       "Extensive selection of rare whiskies, small-batch gins, and exclusive champagne.",
   },
   {
-    icon: IconMicrophone2,
+    icon: Mic2,
     title: "Intimate Vibes",
     description:
       "Underground atmosphere with mood lighting, velvet seating, and secret corners.",
@@ -84,7 +84,7 @@ const upcomingEvents = [
   {
     date: "FEB 15",
     day: "Saturday",
-    title: "DJ Shadow Session",
+    title: "Late Night Vibes",
     description: "Underground beats with resident selector Marcus V.",
     time: "10PM - 4AM",
     price: "$15 cover",
@@ -179,7 +179,7 @@ export default function RedRoomLanding() {
           
           <p className="mb-10 text-lg text-gray-400 max-w-2xl mx-auto">
             An underground cocktail lounge and cabaret experience. 
-            Craft cocktails, world-class DJs, and an atmosphere you won't find anywhere else.
+            Craft cocktails, live music, and an atmosphere you won't find anywhere else.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
