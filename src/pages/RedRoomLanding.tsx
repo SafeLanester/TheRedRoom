@@ -24,6 +24,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import NowHiring from "@/components/NowHiring";
 
 /**
  * The Red Room - Premium Club & Bar Landing Page
@@ -50,52 +51,36 @@ const features = [
     icon: Wine,
     title: "Craft Cocktails",
     description:
-      "Expertly mixed signature drinks and classic cocktails by our award-winning bartenders.",
+      "We have a wide selection of mixers and syrups that pair with our liquors allowing more types of cocktails to be made.",
   },
   {
     icon: Music,
-    title: "Live Music",
+    title: "All Types of Music",
     description:
-      "Live performances every weekend. Jazz, blues, and everything in between.",
+      "Every day you'll hear the hottest music as well as some of your everyday favorites.",
   },
   {
     icon: Wine,
     title: "Premium Spirits",
     description:
-      "Extensive selection of rare whiskies, small-batch gins, and exclusive champagne.",
+      "Great selection of whiskies, as well as other Liquors .",
   },
   {
     icon: Mic2,
     title: "Intimate Vibes",
     description:
-      "Underground atmosphere with mood lighting, velvet seating, and secret corners.",
+      "Underground atmosphere with the stage at eye level in front of the bar.",
   },
 ];
 
 const upcomingEvents = [
   {
-    date: "FEB 14",
-    day: "Friday",
-    title: "Valentine's Masquerade",
-    description: "Mystery, romance, and midnight cocktails. Mask required.",
-    time: "9PM - 3AM",
-    price: "$20 cover",
-  },
-  {
-    date: "FEB 15",
-    day: "Saturday",
-    title: "Late Night Vibes",
-    description: "Underground beats with resident selector Marcus V.",
-    time: "10PM - 4AM",
-    price: "$15 cover",
-  },
-  {
-    date: "FEB 21",
-    day: "Friday",
-    title: "Jazz & Smoke",
-    description: "Live jazz quartet. Whisky tastings until midnight.",
-    time: "8PM - 2AM",
-    price: "$10 cover",
+    date: "Coming Soon",
+    day: "TBA",
+    title: "TBA",
+    description: "Coming Soon",
+    time: "TBA",
+    price: "TBA",
   },
 ];
 
@@ -203,7 +188,7 @@ export default function RedRoomLanding() {
             </div>
             <div className="flex items-center justify-center gap-2 text-gray-400">
               <IconPhone className="size-4 text-red-500" />
-              <span>(555) 123-RED-ROOM</span>
+              <span>(443) 898-4547.</span>
             </div>
           </div>
         </div>
@@ -356,17 +341,20 @@ export default function RedRoomLanding() {
                 <CardContent className="p-6">
                   <div className="flex gap-1 mb-4">
                     {[...Array(testimonial.rating)].map((_, i) => (
-                      <IconStar key={i} className="size-4 text-red-500 fill-red-500" />
+                      <Star key={i} className="size-4 text-red-500 fill-red-500" />
                     ))}
                   </div>
                   <p className="text-gray-300 mb-4 italic">"{testimonial.text}"</p>
-                  <p className="text-sm text-red-400 font-medium">— {testimonial.name}</p>
+                  <p className="text-sm text-red-400 font-medium">-- {testimonial.name}</p>
                 </CardContent>
               </Card>
             ))}
           </div>
         </div>
       </section>
+
+      {/* Now Hiring Section */}
+      <NowHiring />
 
       {/* Contact / Location Section */}
       <section id="contact" className="py-24 bg-gradient-to-b from-red-950/20 to-black">
@@ -377,8 +365,7 @@ export default function RedRoomLanding() {
                 FIND US
               </h2>
               <p className="text-gray-400 mb-8">
-                Tucked away in the heart of downtown Baltimore. Look for the red door 
-                beneath the neon sign. Admission is 21+ with valid ID.
+                Tucked away in the heart of downtown Baltimore. Look for the red beyond the glass doors beneath the neon sign. Admission is 21+ with valid ID.
               </p>
               
               <div className="space-y-6">
@@ -411,7 +398,7 @@ export default function RedRoomLanding() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-white">Reservations</h4>
-                    <p className="text-gray-400">(555) 123-RED-ROOM<br />vip@theredroom.com</p>
+                    <p className="text-gray-400">(443)898-4547<br />theredroomcabaret@gmail.com</p>
                   </div>
                 </div>
               </div>
@@ -474,8 +461,8 @@ export default function RedRoomLanding() {
             <div>
               <h3 className="mb-4 font-semibold text-white">Contact</h3>
               <ul className="space-y-2 text-sm text-gray-400">
-                <li>(555) 123-RED-ROOM</li>
-                <li>vip@theredroom.com</li>
+                <li>(443) 898 4547</li>
+                <li>theredroomcabaret@gmail.com</li>
                 <li>411 E. Baltimore St.</li>
               </ul>
             </div>
@@ -497,7 +484,7 @@ export default function RedRoomLanding() {
           
           <div className="mt-12 pt-8 border-t border-red-900/30 flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-gray-500">
-              © 2025 The Red Room. Must be 21+ to enter.
+              © 2026 The Red Room. Must be 21+ to enter.
             </p>
             <div className="flex gap-6 text-sm text-gray-500">
               <a href="#" className="hover:text-red-500 transition-colors">Privacy Policy</a>
