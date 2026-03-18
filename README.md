@@ -46,8 +46,10 @@ This site serves as the digital front door for The Red Room, an underground caba
 src/
 ├── pages/
 │   └── RedRoomLanding.tsx    # Main landing page component
-├── App.tsx                    # Router setup
-└── components/ui/             # shadcn/ui components
+├── App.tsx                    # Router setup (HashRouter for GitHub Pages)
+├── main.tsx                   # React entry point
+├── components/ui/             # shadcn/ui components
+└── styles.css                 # Global styles + Tailwind
 ```
 
 ### SEO Configuration
@@ -61,10 +63,7 @@ src/
 
 # Documentation
 
-This is a **Zo Site** - a web application running on a user's Zo computer that combines:
-- **Backend**: Bun + Hono server with API routes
-- **Frontend**: React + Vite with client-side routing, shadcn/ui components, and Tailwind CSS 4
-- **Single Process**: Vite runs in middleware mode (no separate dev server)
+This is a **static React + Vite site** - a client-side only web application designed for deployment to GitHub Pages.
 
 ## Architecture
 
@@ -72,470 +71,216 @@ This is a **Zo Site** - a web application running on a user's Zo computer that c
 
 ```
 .
-├── server.ts              # Main server (Hono + Vite middleware)
-├── index.html             # HTML entry point for React
-├── vite.config.ts         # Vite configuration
-├── package.json           # Dependencies and scripts
-├── zosite.json            # Zo deployment config (ports, env vars)
-├── public/                # Static assets (images, fonts, favicon)
-│   ├── favicon.svg        # Site favicon (replace with your own)
+├── index.html              # HTML entry point
+├── vite.config.ts          # Vite configuration
+├── package.json            # Dependencies and scripts
+├── tsconfig.json           # TypeScript configuration
+├── components.json         # shadcn/ui configuration
+├── public/                 # Static assets (images, fonts, favicon)
+│   ├── favicon.svg
 │   └── images/
-│       └── pegasus.png    # Example image (loaded via <img src="/images/pegasus.png">)
-├── backend-lib/
-│   └── zo-api.ts         # Helper for calling Zo API
 └── src/
-    ├── main.tsx          # React entry point
-    ├── App.tsx           # Router setup
-    ├── styles.css        # Global styles
-    └── pages/            # Page components
+    ├── main.tsx           # React entry point
+    ├── App.tsx            # Router setup (HashRouter)
+    ├── styles.css         # Global styles
+    ├── pages/             # Page components
+    ├── components/        # React components
+    ├── hooks/             # Custom hooks
+    └── lib/               # Utilities
 ```
 
-### Development vs Production
+### Key Technologies
 
-**Development Mode** (`bun run dev`):
-- Single Bun process running `server.ts`
-- Vite in middleware mode transforms files on-the-fly
-- API routes: `/api/*` handled by Hono
-- React app: served via Vite transforms (HMR disabled, use `bun --hot` for server restart)
-- Client-side routing: any non-API, non-file route falls back to `index.html`
-- **Environment**: Site runs at an internal authenticated URL accessible only to you (private site on your Zo computer)
+- **React 19** - UI components and state management
+- **Vite** - Build tool and dev server
+- **Tailwind CSS 4** - Utility-first styling
+- **shadcn/ui** - Pre-built accessible components
+- **React Router DOM** - Client-side routing (HashRouter for GitHub Pages)
+- **Lucide React** - Icons
 
-**Production Mode** (`bun run prod`):
-- Builds React app to `dist/` using Vite
-- Bun serves static files from `dist/` via `hono/bun` serveStatic
-- API routes still handled by Hono
-- SPA fallback: all non-API routes serve `dist/index.html`
-- **Environment**: Site is published and accessible to anyone on the internet at a public URL
+### GitHub Pages Deployment
 
-NEVER use the scripts `bun run dev` or `bun run prod`. The Zo system handles running the site in the correct mode based on context. All process management of the server is handled by Zo. Never restart or stop the server manually.
+This site is configured for **GitHub Pages** deployment:
 
-## Viewing, Verification, and Debugging (agent-browser)
+1. **Static Export**: `vite build` generates static files to `dist/`
+2. **HashRouter**: Uses `/#/` paths instead of `/` paths for client-side routing
+3. **Relative Paths**: `base: "./"` in vite.config.ts ensures assets load correctly
 
-The `agent-browser` CLI tool lets you preview, navigate, and debug the site running at `http://localhost:$PORT` (PORT is set by Zo). Use it to verify UI changes, debug routing, or capture screenshots.
+**To deploy to GitHub Pages:**
 
-Core workflow:
-1. Navigate to the site:
-   ```bash
-   agent-browser open http://localhost:$PORT
-   ```
-2. Snapshot the page to get interactive element refs:
-   ```bash
-   agent-browser snapshot -i
-   ```
-3. Interact with elements:
-   ```bash
-   agent-browser click @e1
-   agent-browser fill @e2 "text"
-   agent-browser hover @e3
-   agent-browser get text @e1
-   ```
-4. Re-snapshot after page changes to get updated refs.
-
-Taking screenshots:
 ```bash
-agent-browser screenshot
-agent-browser screenshot --full-page
-agent-browser screenshot --filename debug.png
+# Install dependencies
+npm install
+
+# Build the site
+npm run build
+
+# Deploy dist/ folder to GitHub Pages
+# (via GitHub Actions or manual upload)
 ```
 
-For the full list of commands and options, run:
-```bash
-agent-browser --help
-```
+### Development
 
-Note: Do not tell the user to visit localhost; they already have access via the Zo preview iframe.
+**Development Mode** (`npm run dev`):
+- Vite dev server with HMR (Hot Module Replacement)
+- Default port: 5173
 
-## Key Technologies
+**Production Build** (`npm run build`):
+- Builds static files to `dist/` folder
+- Optimized and minified for production
 
-### ⚠️ IMPORTANT: This is BUN + HONO (NOT Node.js + Express)
-
-This application uses:
-- **Bun** as the runtime (NOT Node.js)
-- **Hono** as the web framework (NOT Express)
-
-Do not use Express patterns. Use Hono equivalents. For file system operations, see the section below.
-
-### Bun Runtime
-- JavaScript runtime (NOT Node.js or Deno)
-- Use `bun add <package>` to install dependencies
-- Built-in TypeScript support
-- Built-in SQLite via `import { Database } from "bun:sqlite"`
-- Process spawning: `Bun.spawn()` for running commands
-
-### File System Operations
-
-Bun has native APIs for file I/O but uses Node.js APIs for directory operations. Use the correct API for each operation:
-
-| Operation | API | Example |
-|-----------|-----|---------|
-| Read file | `Bun.file()` | `await Bun.file("data.json").text()` |
-| Write file | `Bun.write()` | `await Bun.write("out.txt", content)` |
-| File exists | `Bun.file().exists()` | `await Bun.file("x.txt").exists()` |
-| Read directory | `node:fs/promises` | `await readdir("./posts")` |
-| Create directory | `node:fs/promises` | `await mkdir("dir", { recursive: true })` |
-| Glob files | `Bun Glob` | `new Glob("**/*.md").scan(".")` |
-
-**⚠️ Common Mistakes to Avoid:**
-
-```ts
-// ❌ WRONG - These do NOT exist:
-Bun.readdir()        // No such API
-Bun.readdirSync()    // No such API
-Bun.mkdir()          // No such API
-fs.readFileSync()    // Works but slower than Bun.file()
-
-// ✅ CORRECT patterns:
-import { readdir, mkdir } from "node:fs/promises";
-
-// Reading a file
-const content = await Bun.file("config.json").json();
-
-// Writing a file
-await Bun.write("output.txt", "Hello");
-
-// Listing directory contents
-const files = await readdir("./posts");
-
-// Creating a directory
-await mkdir("./uploads", { recursive: true });
-
-// Finding files by pattern
-import { Glob } from "bun";
-const glob = new Glob("**/*.md");
-for await (const file of glob.scan("./posts")) {
-  console.log(file);
-}
-```
-
-### Hono Framework
-- Lightweight web framework designed for Bun
-- Documentation: https://honojs.dev/llms-small.txt
-- Import from `hono` for core, `hono/bun` for Bun-specific features like `serveStatic`
-
-**Serving Static Files (Bun-specific):**
-
-```ts
-import { serveStatic } from 'hono/bun'
-
-app.use('/static/*', serveStatic({ root: './' }))
-app.use('/favicon.ico', serveStatic({ path: './favicon.ico' }))
-app.get('*', serveStatic({ path: './static/fallback.txt' }))
-
-// You can reach outside the project root to files in the user's workspace
-app.get('/workspace-file', serveStatic({ path: '../some/dir/file.txt' }))
-app.get('/absolute-file', serveStatic({ path: '/home/user/file.txt' }))
-
-// Custom MIME types
-app.get('/media/*', serveStatic({
-  mimes: {
-    m3u8: 'application/vnd.apple.mpegurl',
-    ts: 'video/mp2t',
-  },
-}))
-```
-
-**Hono Routing:**
-
-```ts
-// REST API endpoints
-app.get('/', (c) => c.json({ items: [] }))
-app.post('/', (c) => c.json({ created: true }, 201))
-app.get('/:id', (c) => c.json({ id: c.req.param('id') }))
-
-// Middleware
-import { basicAuth } from 'hono/basic-auth'
-app.use('/admin/*', basicAuth({ username: 'admin', password: 'secret' }))
-
-// Multiple middlewares are processed in order
-app.use(logger())
-app.use('/posts/*', cors())
-app.post('/posts/*', basicAuth())
-```
-
-### React + Vite
-- React for UI components
-- Vite handles bundling and transforms
-- Dependencies installed via `bun add` (NOT CDN imports) - all packages bundled by Vite
-- React Router for client-side routing
-- **Styling**: Tailwind CSS 4 configured with `@tailwindcss/vite` plugin
-- **UI Components**: shadcn/ui already set up and configured - components can be added via `bunx shadcn@latest add <component-name>`
-- **Icons**: Lucide React icons included and ready to use
-
-## Common Tasks
-
-### Adding API Routes
-
-Add routes in `server.ts` before the Vite middleware:
-
-```ts
-app.get("/api/example", async (c) => {
-  return c.json({ data: "example" });
-});
-```
-
-### Adding React Components
-
-Create components in `src/`:
-
-```tsx
-// src/components/MyComponent.tsx
-import React from "react";
-
-export default function MyComponent() {
-  return <div>Hello</div>;
-}
-```
-
-Add routes in `src/App.tsx`:
-
-```tsx
-import MyPage from "./pages/MyPage";
-
-<Routes>
-  <Route path="/my-page" element={<MyPage />} />
-</Routes>
-```
-
-### Calling Zo API from Backend
-
-Use the helper in `backend-lib/zo-api.ts`:
-
-```ts
-import { callZo } from "./backend-lib/zo-api";
-
-app.post("/api/ask-zo", async (c) => {
-  const { question } = await c.req.json();
-
-  const result = await callZo(question, {
-    outputFormat: {
-      type: "object",
-      properties: { answer: { type: "string" } },
-      required: ["answer"]
-    }
-  });
-
-  return c.json(result);
-});
-```
+**Preview** (`npm run preview`):
+- Preview the production build locally
 
 ### Static Assets
 
-There are two ways to include static assets like images, fonts, or JSON data:
+#### The `public/` Folder
 
-#### Option 1: The `public/` Folder (Recommended for Most Cases)
-
-Place files in the `public/` directory. They're served at the root URL path and work identically in dev and production.
+Place files in the `public/` directory. They're served at the root URL path.
 
 ```
 public/
 ├── favicon.svg
-├── images/
-│   ├── logo.png
-│   └── hero.jpg
-├── fonts/
-│   └── custom.woff2
-└── og-image.jpg
+└── images/
+    └── hero.jpg
 ```
 
 Reference them with absolute paths:
 
 ```tsx
-<img src="/images/logo.png" alt="Logo" />
-<link rel="icon" href="/favicon.svg" />
+<img src="/favicon.svg" alt="Logo" />
 ```
 
-In production, Vite copies the `public/` folder contents to `dist/` automatically.
+#### Import in Components (Bundled Assets)
 
-**Use `public/` for**: favicons, Open Graph images, downloadable files, fonts, any asset that needs a stable/predictable URL.
-
-#### Option 2: Import in Components (Bundled Assets)
-
-Import assets directly in your React components. Vite handles bundling, optimization, and cache-busting via content hashes.
+Import assets directly in your React components. Vite handles bundling and optimization.
 
 ```tsx
-// Images
 import heroImage from '@/assets/hero.png';
+<img src={heroImage} alt="Hero" />
+```
 
-function Hero() {
-  return <img src={heroImage} alt="Hero" />;
+### React Router (HashRouter)
+
+GitHub Pages doesn't support server-side redirects for SPA routing. We use **HashRouter** which adds `/#/` to URLs:
+
+- `https://username.github.io/the-red-room/#/` - Home
+- `https://username.github.io/the-red-room/#/about` - About page (if added)
+
+This allows client-side routing to work without server configuration.
+
+### Adding Routes
+
+Add routes in `src/App.tsx`:
+
+```tsx
+import { HashRouter, Route, Routes } from "react-router-dom";
+import NewPage from "./pages/NewPage";
+
+<HashRouter>
+  <Routes>
+    <Route path="/" element={<RedRoomLanding />} />
+    <Route path="/new-page" element={<NewPage />} />
+  </Routes>
+</HashRouter>
+```
+
+### Adding Components
+
+Create components in `src/components/`:
+
+```tsx
+// src/components/MyComponent.tsx
+export default function MyComponent() {
+  return <div>Hello</div>;
 }
-
-// JSON data
-import config from '@/data/config.json';
-
-function Settings() {
-  return <div>App version: {config.version}</div>;
-}
-
-// SVG as component (with ?react suffix)
-import Logo from '@/assets/logo.svg?react';
-
-function Header() {
-  return <Logo className="h-8 w-8" />;
-}
 ```
 
-Place imported assets in `src/assets/` or alongside components:
+### UI Components (shadcn/ui)
 
-```
-src/
-├── assets/
-│   ├── hero.png
-│   └── logo.svg
-├── data/
-│   └── config.json
-└── components/
-    └── Header.tsx
+This project uses shadcn/ui components. Add new components with:
+
+```bash
+npx shadcn@latest add button
 ```
 
-**Use imports for**: component-specific images, icons used in JSX, JSON configuration, any asset that benefits from bundling/tree-shaking.
-
-#### Serving Files from the Workspace
-
-For files outside the project (e.g., user's workspace files), create an API route:
-
-```ts
-app.get("/myfile", async (c) => {
-  const file = Bun.file("/path/to/file");
-  return new Response(file);
-});
-```
-
-### Database
-
-This application is database-agnostic and doesn't include a database by default. For most use cases, SQLite is recommended.
-
-**Using Bun's Built-in SQLite:**
-
-```ts
-import { Database } from "bun:sqlite";
-
-// Create/open database
-const db = new Database("mydb.sqlite");
-
-// Create table
-db.run(`
-  CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    email TEXT UNIQUE
-  )
-`);
-
-// Insert data
-const insert = db.prepare("INSERT INTO users (name, email) VALUES (?, ?)");
-insert.run("John Doe", "john@example.com");
-
-// Query data
-const query = db.query("SELECT * FROM users WHERE name = ?");
-const users = query.all("John Doe");
-
-// Close when done
-db.close();
-```
-
-**In a Hono route:**
-
-```ts
-app.get("/api/users", (c) => {
-  const db = new Database("mydb.sqlite");
-  const users = db.query("SELECT * FROM users").all();
-  db.close();
-  return c.json({ users });
-});
-
-app.post("/api/users", async (c) => {
-  const { name, email } = await c.req.json();
-  const db = new Database("mydb.sqlite");
-
-  try {
-    const insert = db.prepare("INSERT INTO users (name, email) VALUES (?, ?)");
-    insert.run(name, email);
-    db.close();
-    return c.json({ success: true }, 201);
-  } catch (error) {
-    db.close();
-    return c.json({ error: "Failed to create user" }, 400);
-  }
-});
-```
+Available components: https://ui.shadcn.com/docs/components
 
 ## Scripts
 
-- `bunx tsc --noEmit` - Type check
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npx tsc --noEmit` - Type check
 
 ## Important Notes
 
-### Server-Side vs Client-Side
+### Client-Side Only
 
-- **Server code**: `server.ts`, `backend-lib/` - runs on Bun
-- **Client code**: `src/` - runs in browser, bundled by Vite
-- Install ALL dependencies via `bun add` (React, etc.) - Vite bundles them
+- This is a **purely static** site with no backend
+- All data must be fetched from client-side APIs or embedded in the code
+- No server-side rendering or API routes
 
 ### Environment Variables
 
-- `NODE_ENV=production` switches to production mode
-- `ZO_CLIENT_IDENTITY_TOKEN` required for calling Zo API
-- Access server vars via `process.env.VAR_NAME` in server code
-- Access client vars prefixed with `VITE_` via `import.meta.env.VITE_VAR_NAME` in React code
+- Variables prefixed with `VITE_` are exposed to client-side code
+- Access via `import.meta.env.VITE_VAR_NAME`
 
-### File System Access
+### Deployment Checklist
 
-The server runs on the user's Zo computer and can:
-- Read/write any file on the system
-- Execute commands via `Bun.spawn()`
-- Access local databases
+Before deploying to GitHub Pages:
 
-### Configuration
+1. ✅ Run `npm run build` successfully
+2. ✅ Verify `dist/` folder contains all assets
+3. ✅ Check that all images load correctly
+4. ✅ Test all links and navigation
+5. ✅ Ensure `base: "./"` is set in vite.config.ts for project pages
 
-`zosite.json` defines:
-```json
-{
-  "name": "My Site",
-  "local_port": 12345,
-  "entrypoint": "bun run dev",
-  "publish": {
-    "label": "My Site",
-    "type": "http",
-    "entrypoint": "bun run prod",
-    "published_port": 12346,
-    "env": {
-      "NODE_ENV": "production",
-      "ZO_CLIENT_IDENTITY_TOKEN": "none"
-    }
-  }
-}
+## GitHub Pages Setup
+
+### Repository Settings
+
+1. Go to **Settings > Pages** in your GitHub repository
+2. Set **Source** to "Deploy from a branch"
+3. Select the branch (e.g., `gh-pages` or `main` with `/root` or `/docs`)
+
+### Custom Domain (Optional)
+
+1. Add a `CNAME` file to the `public/` folder with your domain
+2. Configure DNS settings with your provider
+3. Enable "Enforce HTTPS" in GitHub Pages settings
+
+### GitHub Actions (Auto Deploy)
+
+Create `.github/workflows/deploy.yml`:
+
+```yaml
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm run build
+      - uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist
 ```
 
-- Top-level `env`: Environment variables for **development mode**
-- `publish.env`: Environment variables for **production mode**
-- Variables prefixed with `VITE_` are exposed to client-side code via Vite
-- `PORT` environment variable is automatically set to match `local_port` (or `published_port` in production)
+---
 
-### ⚠️ IMPORTANT: Do Not Edit `zosite.json` System Fields
+## Safe-Lane Context
 
-**The `zosite.json` file is auto-generated by Zo. Most fields should not be manually edited.**
+This site was created as part of Safe-Lane's web presence offerings. For questions or modifications, contact the development team.
 
-- `local_port` and `published_port` are assigned by the system when the site is created
-- Ports are chosen using a hash-based algorithm to avoid conflicts
-- The Zo system manages process lifecycle, tunneling, and URL routing based on these ports
-- Editing ports or entrypoints will break the site's preview URL and publish functionality
-
-**Safe to edit:**
-- `name` - The display name for the site
-- `env` and `publish.env` - Add or modify environment variables as needed
-
-**Never edit:**
-- `local_port`, `published_port` - System-assigned ports
-- `entrypoint`, `publish.entrypoint` - Managed startup commands
-- `label`, `type` - Service configuration
-
-**Private vs Public Access:**
-- **Private (default)**: Sites run in dev mode behind authentication. Only you can access them via the preview iframe in Zo. This is the normal development experience.
-- **Public (published)**: Publishing creates a shareable URL that anyone on the internet can access without authentication.
-
-To publish your site publicly, use the **Publish button** in the Zo UI or explicitly ask Zo to publish it (e.g., "publish this site", "make it public").
-
-## Deployment
-
-The site exports `{ fetch, port }` from `server.ts` for Zo's deployment system. The same code runs in both dev and production - mode is controlled by `NODE_ENV`.
+**Last Updated**: March 2026  
+**Status**: Static React + Vite build (GitHub Pages compatible)
