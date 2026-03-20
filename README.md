@@ -1,6 +1,8 @@
 This file provides guidance when working with code in this repository. The README.md should ALWAYS serve as an accurate, comprehensive piece of documentation for this project. It should describe the broader goals and purpose of this repository along with the technical implementation details. If any aspect of the project changes, the README.md should be updated to reflect that.
 
 # Project Notes
+Just Cloned Locally in order to push and trigger github actions.
+README updated on 2026-03-19 to trigger GitHub Actions.
 
 ## The Red Room - Club & Bar Landing Page
 
