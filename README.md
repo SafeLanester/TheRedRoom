@@ -1,4 +1,4 @@
-This file provides guidance when working with code in this repository. The README.md should ALWAYS serve as an accurate, comprehensive piece of documentation for this project. It should describe the broader goals and purpose of this repository along with the technical implementation details. If any aspect of the project changes, the README.md should be updated to reflect that.
+sudo 
 
 # Project Notes
 Just Cloned Locally in order to push and trigger github actions.
@@ -270,7 +270,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
       - run: npm ci
       - run: npm run build
       - uses: JamesIves/github-pages-deploy-action@v4
