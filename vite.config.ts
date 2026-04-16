@@ -1,6 +1,11 @@
 import { defineConfig } from 'vite';
+import path from "node:path";
 
 export default defineConfig({
   base: '/TheRedRoom/',
-  // other configuration settings
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
 });
